@@ -1,0 +1,769 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/20/2023 10:38:55 AM
+// Design Name: 
+// Module Name: fir_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fir_tb
+#(  parameter pADDR_WIDTH = 12,
+    parameter pDATA_WIDTH = 32,
+    parameter Tape_Num    = 11,
+    parameter Data_Num    = 600
+)();
+    wire                        awready;
+    wire                        wready;
+    reg                         awvalid;
+    reg   [(pADDR_WIDTH-1): 0]  awaddr;
+    reg                         wvalid;
+    reg signed [(pDATA_WIDTH-1) : 0] wdata;
+    wire                        arready;
+    reg                         rready;
+    reg                         arvalid;
+    reg         [(pADDR_WIDTH-1): 0] araddr;
+    wire                        rvalid;
+    wire signed [(pDATA_WIDTH-1): 0] rdata;
+    reg                         ss_tvalid;
+    reg signed [(pDATA_WIDTH-1) : 0] ss_tdata;
+    reg                         ss_tlast;
+    wire                        ss_tready;
+    reg                         sm_tready;
+    wire                        sm_tvalid;
+    wire signed [(pDATA_WIDTH-1) : 0] sm_tdata;
+    wire                        sm_tlast;
+    reg                         axis_clk;
+    reg                         axis_rst_n;
+
+// ram for tap
+    wire [3:0]               tap_WE;
+    wire                     tap_EN;
+    wire [(pDATA_WIDTH-1):0] tap_Di;
+    wire [(pADDR_WIDTH-1):0] tap_A;
+    wire [(pDATA_WIDTH-1):0] tap_Do;
+
+// ram for data RAM
+    wire [3:0]               data_WE;
+    wire                     data_EN;
+    wire [(pDATA_WIDTH-1):0] data_Di;
+    wire [(pADDR_WIDTH-1):0] data_A;
+    wire [(pDATA_WIDTH-1):0] data_Do;
+
+
+
+    fir fir_DUT(
+        .awready(awready),
+        .wready(wready),
+        .awvalid(awvalid),
+        .awaddr(awaddr),
+        .wvalid(wvalid),
+        .wdata(wdata),
+        .arready(arready),
+        .rready(rready),
+        .arvalid(arvalid),
+        .araddr(araddr),
+        .rvalid(rvalid),
+        .rdata(rdata),
+        .ss_tvalid(ss_tvalid),
+        .ss_tdata(ss_tdata),
+        .ss_tlast(ss_tlast),
+        .ss_tready(ss_tready),
+        .sm_tready(sm_tready),
+        .sm_tvalid(sm_tvalid),
+        .sm_tdata(sm_tdata),
+        .sm_tlast(sm_tlast),
+
+        // ram for tap
+        .tap_WE(tap_WE),
+        .tap_EN(tap_EN),
+        .tap_Di(tap_Di),
+        .tap_A(tap_A),
+        .tap_Do(tap_Do),
+
+        // ram for data
+        .data_WE(data_WE),
+        .data_EN(data_EN),
+        .data_Di(data_Di),
+        .data_A(data_A),
+        .data_Do(data_Do),
+
+        .axis_clk(axis_clk),
+        .axis_rst_n(axis_rst_n)
+
+        );
+    
+    // RAM for tap:  
+    bram11 tap_RAM (
+        .CLK(axis_clk),
+        .WE(tap_WE),
+        .EN(tap_EN),
+        .Di(tap_Di),
+        .A(tap_A),
+        .Do(tap_Do)
+    );
+
+    // RAM for data: choose bram11 or bram12
+    bram11 data_RAM(
+        .CLK(axis_clk),
+        .WE(data_WE),
+        .EN(data_EN),
+        .Di(data_Di),
+        .A(data_A),
+        .Do(data_Do)
+    );
+
+    reg signed [(pDATA_WIDTH-1):0] Din_list[0:(Data_Num-1)];
+    reg signed [(pDATA_WIDTH-1):0] golden_list[0:(Data_Num-1)];
+
+    event   sanity_done;
+
+    initial begin
+        $dumpfile("fir.vcd");
+        $dumpvars();
+    end
+
+
+    initial begin
+        axis_clk = 0;
+        forever begin
+            #5 axis_clk = (~axis_clk);
+        end
+    end
+
+    initial begin
+        axis_rst_n = 0;
+        @(posedge axis_clk); @(posedge axis_clk);
+        axis_rst_n = 1;
+    end
+
+    reg [31:0]  data_length;
+    integer Din, golden, input_data, golden_data, m;
+    initial begin
+        data_length = 0;
+        Din = $fopen("samples_triangular_wave.dat","r");
+        golden = $fopen("out_gold.dat","r");
+        for(m=0;m<Data_Num;m=m+1) begin
+            input_data = $fscanf(Din,"%d", Din_list[m]);
+            golden_data = $fscanf(golden,"%d", golden_list[m]);
+            data_length = data_length + 1;
+        end
+    end
+
+    integer i;
+    initial begin
+        $display("------------Start simulation-----------");
+        ss_tvalid = 0;
+        $display("----Start the data input(AXI-Stream)----");
+        for(i=0;i<(data_length-1);i=i+1) begin
+            ss_tlast = 0; ss(Din_list[i]);
+        end
+        config_read_check(12'h00, 32'h00, 32'h0000_000f); // check idle = 0
+        ss_tlast = 1; ss(Din_list[(Data_Num-1)]);
+        ss_tvalid = 0;
+        ss_tlast = 0;
+        $display("------End the data input(AXI-Stream)------");
+    end
+
+    integer k;
+    reg error;
+    reg status_error;
+    initial begin
+        error = 0; status_error = 0;
+        sm_tready = 1;
+        wait (sm_tvalid);
+        for(k=0;k < data_length;k=k+1) begin
+            sm(golden_list[k],k);
+        end
+        config_read_check(12'h00, 32'h02, 32'h0000_0002); // check ap_done = 1 (0x00 [bit 1])
+        config_read_check(12'h00, 32'h04, 32'h0000_0004); // check ap_idle = 1 (0x00 [bit 2])
+        if (error == 0 & error_coef == 0) begin
+            $display("---------------------------------------------");
+            $display("-----------Congratulations! Pass-------------");
+        end
+        else begin
+            $display("--------Simulation Failed---------");
+        end
+        arvalid <= 0;
+        -> sanity_done;
+        //$finish;
+    end
+
+    // Prevent hang
+    integer timeout = (1000000);
+    initial begin
+        while(timeout > 0) begin
+            @(posedge axis_clk);
+            timeout = timeout - 1;
+        end
+        $display($time, "Simualtion Hang ....");
+        $finish;
+    end
+
+
+    reg signed [31:0] coef[0:10]; // fill in coef 
+    initial begin
+        coef[0]  =  32'd0;
+        coef[1]  = -32'd10;
+        coef[2]  = -32'd9;
+        coef[3]  =  32'd23;
+        coef[4]  =  32'd56;
+        coef[5]  =  32'd63;
+        coef[6]  =  32'd56;
+        coef[7]  =  32'd23;
+        coef[8]  = -32'd9;
+        coef[9]  = -32'd10;
+        coef[10] =  32'd0;
+    end
+
+    reg error_coef;
+    initial begin
+        error_coef = 0;
+        $display("----Start the coefficient input(AXI-lite)----");
+        config_write(12'h10, data_length);
+        for(k=0; k< Tape_Num; k=k+1) begin
+            config_write(12'h20+4*k, coef[k]);
+        end
+        awvalid <= 0; wvalid <= 0;
+        // read-back and check
+        $display(" Check Coefficient ...");
+        for(k=0; k < Tape_Num; k=k+1) begin
+            config_read_check(12'h20+4*k, coef[k], 32'hffffffff);
+        end
+        arvalid <= 0;
+        $display(" Tape programming done ...");
+        $display(" Start FIR");
+        @(posedge axis_clk) config_write(12'h00, 32'h0000_0001);    // ap_start = 1
+        wvalid  <= 0;
+        awvalid <= 0;
+        $display("----End the coefficient input(AXI-lite)----");
+    end
+
+    task config_write;
+        input [11:0]    addr;
+        input [31:0]    data;
+        begin
+            awvalid <= 0; wvalid <= 0;
+            @(posedge axis_clk);
+            awvalid <= 1; awaddr <= addr;
+            wvalid  <= 1; wdata <= data;        
+            @(posedge axis_clk);
+            while (!wready) @(posedge axis_clk);
+        end
+    endtask
+
+    task config_read_check;
+        input [11:0]        addr;
+        input signed [31:0] exp_data;
+        input [31:0]        mask;
+        begin
+            arvalid <= 0;
+            @(posedge axis_clk);
+            arvalid <= 1; araddr <= addr;
+            rready <= 1;
+            @(posedge axis_clk);
+            while (!rvalid) @(posedge axis_clk);
+            if (rdata == $signed(32'hffff_ffff)) begin
+                $display("Conflict: exp = %d, rdata = %d", exp_data, rdata);
+            end else if( (rdata & mask) != (exp_data & mask)) begin
+                $display("ERROR: exp = %d, rdata = %d", exp_data, rdata);
+                error_coef <= 1;
+            end else begin
+                $display("OK: exp = %d, rdata = %d", exp_data, rdata);
+            end
+        end
+    endtask
+
+
+
+    task ss;
+        input  signed [31:0] in1;
+        begin
+            ss_tvalid <= 1;
+            ss_tdata  <= in1;
+            @(posedge axis_clk);
+            while (!ss_tready) begin
+                @(posedge axis_clk);
+            end
+        end
+    endtask 
+
+    task sm;
+        input  signed [31:0] in2; // golden data
+        input         [31:0] pcnt; // pattern count
+        begin
+            sm_tready <= 1;
+            @(posedge axis_clk) 
+            wait(sm_tvalid);
+            while(!sm_tvalid) @(posedge axis_clk);
+            if (sm_tdata != in2) begin
+                $display("[ERROR] [Pattern %d] Golden answer: %d, Your answer: %d", pcnt, in2, sm_tdata);
+                error <= 1;
+            end
+            else begin
+                $display("[PASS] [Pattern %d] Golden answer: %d, Your answer: %d", pcnt, in2, sm_tdata);
+            end
+            @(posedge axis_clk);
+        end
+    endtask
+
+//--------------------------------new task------------------------------
+    task stream_generation;
+        input integer       tc_num;
+        input reg[31:0]     seed;        
+
+        integer     loop, golden_loop, calc_loop;
+
+        begin
+            dyn_seed = seed;
+
+            for (loop = 0; loop < tc_num; loop = loop + 1) begin
+                tc1_random_bit  = $random(dyn_seed);
+                tc1_random_bit  = {{22{tc1_random_bit[10]}}, tc1_random_bit[9:0]};
+                tc1_stream_in[loop] = tc1_random_bit;
+                dyn_seed        = {tc1_random_bit[7:0], tc1_random_bit[7:0], tc1_random_bit[7:0], tc1_random_bit[7:0]};
+            end
+
+            for (golden_loop = 0; golden_loop < tc_num; golden_loop = golden_loop + 1) begin
+                golden_result = 0;
+                for (calc_loop = 0; calc_loop < 11; calc_loop = calc_loop + 1) begin
+                    if (golden_loop < 10) begin                    
+                        if (calc_loop <= golden_loop) begin
+                            golden_result = golden_result + coef[calc_loop] * tc1_stream_in[golden_loop - calc_loop];
+                        end                 
+                    end else begin
+                        golden_result = golden_result + coef[calc_loop] * tc1_stream_in[golden_loop - calc_loop];
+                    end
+                end 
+                tc1_golden[golden_loop] = golden_result;
+            end
+        end
+    endtask
+
+    task latency_insert;
+        input reg [31:0] seed;
+
+        begin
+            case(seed[0])
+                0: begin
+                    repeat ($urandom_range(0, 5))  @(posedge axis_clk);
+                end
+                1: begin
+                    repeat ($urandom_range(0, 2 * filter_latency))  @(posedge axis_clk);
+                end
+            endcase     
+
+            seed_randomize(seed);
+        end
+    endtask
+
+    task random_config_write;
+        input [11:0]    addr;
+        input [31:0]    data;
+        begin
+            awvalid <= 0; wvalid <= 0;
+            @(posedge axis_clk);
+            fork
+                begin
+                    repeat ($urandom_range(0,10)) @(posedge axis_clk);
+                    awvalid <= 1; awaddr <= addr;
+                    @(posedge axis_clk);
+                    while (!awready) @(posedge axis_clk);
+                    awvalid <= 0;
+                end
+                begin
+                    repeat ($urandom_range(0,10)) @(posedge axis_clk);
+                    wvalid  <= 1; wdata <= data; 
+                    @(posedge axis_clk);
+                    while (!wready) @(posedge axis_clk);
+                    wvalid <= 0;       
+                end
+            join
+        end
+    endtask
+
+    task random_config_read_check;
+        input [11:0]        addr;
+        input signed [31:0] exp_data;
+        input [31:0]        mask;
+        begin
+            arvalid <= 0;
+            @(posedge axis_clk);
+            arvalid <= 1; araddr <= addr;
+
+            latency_insert(dyn_seed);
+            rready <= 1;
+
+            @(posedge axis_clk);
+            while (!rvalid) @(posedge axis_clk);
+            arvalid <= 0;
+            if (rdata == 32'hffff_ffff) begin
+                $display("Conflict: exp = %d, rdata = %d", exp_data, rdata);
+            end else if( (rdata & mask) != (exp_data & mask)) begin
+                $display("ERROR: exp = %d, rdata = %d", exp_data, rdata);
+                error_coef <= 1;
+            end else begin
+                $display("OK: exp = %d, rdata = %d", exp_data, rdata);
+            end
+        end
+    endtask
+
+    task seed_randomize;
+        input reg [31:0] seed;
+
+        dyn_seed = $random(seed); 
+    endtask
+
+
+    reg [31:0]          tc_seed;
+    reg [31:0]          dyn_seed;    
+    reg signed [31:0]   golden_result;
+    integer             filter_latency = 10; 
+    integer             loop, golden_loop, calc_loop;  
+
+//--------------------------------tc 1------------------------------
+    parameter    tc1_num = 100;
+
+    reg signed [31:0]   tc1_random_bit;
+    reg signed [31:0]   tc1_stream_in[tc1_num-1:0];
+    reg signed [31:0]   tc1_golden[tc1_num-1:0];  
+    event        tc1_start_stream_in;
+    event        tc1_done;       
+
+    integer     in_cnt, out_cnt;     
+    integer     config_rd_wr = 1;
+
+    initial begin
+        @ sanity_done;
+        
+        tc_seed = 32'h111;
+
+        repeat (10) @(posedge axis_clk);
+        $display("----Starting TC 1----");
+                 
+        for (loop = 0; loop < tc1_num; loop = loop + 1) begin
+            tc1_random_bit  = $random(dyn_seed);
+            tc1_random_bit  = {{22{tc1_random_bit[10]}}, tc1_random_bit[9:0]};
+            tc1_stream_in[loop] = tc1_random_bit;
+            dyn_seed        = {tc1_random_bit[7:0], tc1_random_bit[7:0], tc1_random_bit[7:0], tc1_random_bit[7:0]};
+        end
+
+        for (golden_loop = 0; golden_loop < tc1_num; golden_loop = golden_loop + 1) begin
+            golden_result = 0;
+            for (calc_loop = 0; calc_loop < 11; calc_loop = calc_loop + 1) begin
+                if (golden_loop < 10) begin                    
+                    if (calc_loop <= golden_loop) begin
+                        golden_result = golden_result + coef[calc_loop] * tc1_stream_in[golden_loop - calc_loop];
+                    end                 
+                end else begin
+                    golden_result = golden_result + coef[calc_loop] * tc1_stream_in[golden_loop - calc_loop];
+                end
+            end 
+            tc1_golden[golden_loop] = golden_result;
+        end
+        
+        
+        //for (in_cnt = 0; in_cnt < tc1_num; in_cnt = in_cnt + 1) begin
+        //    $display("%d, stream_in, %d",in_cnt, tc1_stream_in[in_cnt]);
+        //end
+
+        //for (in_cnt = 0; in_cnt < tc1_num; in_cnt = in_cnt + 1) begin
+        //    $display("%d, golden, %d",in_cnt, tc1_golden[in_cnt]);
+        //end
+
+        latency_insert(dyn_seed);
+
+        random_config_write(12'h00, 32'h0000_0001);
+
+        fork
+            begin
+                //@ tc1_start_stream_in
+                for (in_cnt = 0; in_cnt < (tc1_num-1); in_cnt = in_cnt + 1) begin
+                    ss_tlast = 0; 
+                    ss(tc1_stream_in[in_cnt]);
+                    if (dyn_seed[2:0] < 3'd3) begin
+                        ss_tvalid = 0;
+                        repeat (dyn_seed[1:0]) @(posedge axis_clk);                        
+                        seed_randomize(dyn_seed);
+                    end
+                end
+                ss_tlast = 1; 
+                ss(tc1_stream_in[tc1_num-1]);
+                ss_tlast = 0;                
+            end
+
+            begin
+
+                for(out_cnt = 0; out_cnt < tc1_num; out_cnt = out_cnt + 1) begin
+
+                    if (dyn_seed[2:0]< 3'd3) begin
+                        latency_insert(dyn_seed);
+                    end
+
+                    sm(tc1_golden[out_cnt],out_cnt);                    
+                    sm_tready <= 0;
+                end
+
+                config_read_check(12'h00, 32'h02, 32'h0000_0002); // check ap_done = 1 (0x00 [bit 1])
+                config_read_check(12'h00, 32'h04, 32'h0000_0004); // check ap_idle = 1 (0x00 [bit 2])
+
+                if (error == 0 & error_coef == 0) begin
+                    $display("---------------------------------------------");
+                    $display("-----------Congratulations! Pass-------------");
+                end
+                else begin
+                    $display("--------Simulation Failed---------");
+                end
+                -> tc1_done;
+
+            end
+
+            begin
+                while (config_rd_wr) begin
+                    case(dyn_seed[0])
+                        0: random_config_write(12'h28, 32'h0000_1111);
+                        1: random_config_read_check(12'h28, 32'h04, 32'h0000_0004);
+                    endcase
+                    seed_randomize(dyn_seed);
+                    if ((out_cnt > (tc1_num-10))) config_rd_wr = 0;
+                end
+            end
+        join        
+    end
+
+//--------------------------------tc 2------------------------------
+    parameter    tc2_num = 100;
+
+    reg signed [31:0]   tc2_random_bit;
+    reg signed [31:0]   tc2_stream_in[tc2_num-1:0];
+    reg signed [31:0]   tc2_golden[tc2_num-1:0];
+    event        tc2_start_stream_in;
+    event        tc2_done;   
+       
+
+    initial begin
+        @ tc1_done;
+        
+        config_rd_wr = 1;
+        tc_seed = 32'h222; 
+        repeat (10) @(posedge axis_clk);
+        $display("----Starting TC 2----");
+
+
+        for (loop = 0; loop < tc2_num; loop = loop + 1) begin
+            tc2_random_bit  = $random(dyn_seed);
+            tc2_random_bit  = {{22{tc2_random_bit[10]}}, tc2_random_bit[9:0]};
+            tc2_stream_in[loop] = tc2_random_bit;
+            dyn_seed        = {tc2_random_bit[7:0], tc2_random_bit[7:0], tc2_random_bit[7:0], tc2_random_bit[7:0]};
+        end
+
+        for (golden_loop = 0; golden_loop < tc2_num; golden_loop = golden_loop + 1) begin
+            golden_result = 0;
+            for (calc_loop = 0; calc_loop < 11; calc_loop = calc_loop + 1) begin
+                if (golden_loop < 10) begin                    
+                    if (calc_loop <= golden_loop) begin
+                        golden_result = golden_result + coef[calc_loop] * tc2_stream_in[golden_loop - calc_loop];
+                    end                 
+                end else begin
+                    golden_result = golden_result + coef[calc_loop] * tc2_stream_in[golden_loop - calc_loop];
+                end
+            end 
+            tc2_golden[golden_loop] = golden_result;
+        end
+
+
+        //for (in_cnt = 0; in_cnt < tc2_num; in_cnt = in_cnt + 1) begin
+        //    $display("%d, stream_in, %d",in_cnt, tc2_stream_in[in_cnt]);
+        //end
+
+        //for (in_cnt = 0; in_cnt < tc2_num; in_cnt = in_cnt + 1) begin
+        //    $display("%d, golden, %d",in_cnt, tc2_golden[in_cnt]);
+        //end
+
+        latency_insert(dyn_seed);
+
+        random_config_write(12'h00, 32'h0000_0001);
+
+        fork
+            begin
+                //@ tc2_start_stream_in
+                for (in_cnt = 0; in_cnt < (tc2_num-1); in_cnt = in_cnt + 1) begin
+                    ss_tlast = 0; 
+                    ss(tc2_stream_in[in_cnt]);
+                    if (dyn_seed[2:0] < 3'd3) begin
+                        ss_tvalid = 0;
+                        repeat (dyn_seed[1:0]) @(posedge axis_clk);                        
+                        seed_randomize(dyn_seed);
+                    end
+                end
+                ss_tlast = 1; 
+                ss(tc2_stream_in[tc2_num-1]);
+                ss_tlast = 0;                
+            end
+
+            begin
+
+                for(out_cnt = 0; out_cnt < tc2_num; out_cnt = out_cnt + 1) begin
+
+                    if (dyn_seed[2:0]< 3'd3) begin
+                        latency_insert(dyn_seed);
+                    end
+
+                    sm(tc2_golden[out_cnt],out_cnt);                    
+                    sm_tready <= 0;
+                end
+
+                config_read_check(12'h00, 32'h02, 32'h0000_0002); // check ap_done = 1 (0x00 [bit 1])
+                config_read_check(12'h00, 32'h04, 32'h0000_0004); // check ap_idle = 1 (0x00 [bit 2])
+
+                if (error == 0 & error_coef == 0) begin
+                    $display("---------------------------------------------");
+                    $display("-----------Congratulations! Pass-------------");
+                end
+                else begin
+                    $display("--------Simulation Failed---------");
+                end
+                -> tc2_done;
+
+            end
+
+            begin
+                while (config_rd_wr) begin
+                    case(dyn_seed[0])
+                        0: random_config_write(12'h28, 32'h0000_0001);
+                        1: random_config_read_check(12'h28, 32'h04, 32'h0000_0004);
+                    endcase
+                    seed_randomize(dyn_seed);
+                    if ((out_cnt > (tc2_num-10))) config_rd_wr = 0;
+                end
+            end
+        join
+        
+    end
+
+//--------------------------------tc 3------------------------------
+    parameter    tc3_num = 100;
+ 
+    reg signed [31:0]   tc3_random_bit;
+    reg signed [31:0]   tc3_stream_in[tc3_num-1:0];
+    reg signed [31:0]   tc3_golden[tc3_num-1:0];
+    event        tc3_start_stream_in;
+    event        tc3_done;   
+
+
+    initial begin
+        @ tc2_done;
+        tc_seed = 32'h333;
+        config_rd_wr = 1;
+        repeat (10) @(posedge axis_clk);
+        $display("----Starting TC 3----");
+
+
+        for (loop = 0; loop < tc3_num; loop = loop + 1) begin
+            tc3_random_bit  = $random(dyn_seed);
+            tc3_random_bit  = {{22{tc3_random_bit[10]}}, tc3_random_bit[9:0]};
+            tc3_stream_in[loop] = tc3_random_bit;
+            dyn_seed        = {tc3_random_bit[7:0], tc3_random_bit[7:0], tc3_random_bit[7:0], tc1_random_bit[7:0]};
+        end
+
+        for (golden_loop = 0; golden_loop < tc3_num; golden_loop = golden_loop + 1) begin
+            golden_result = 0;
+            for (calc_loop = 0; calc_loop < 11; calc_loop = calc_loop + 1) begin
+                if (golden_loop < 10) begin                    
+                    if (calc_loop <= golden_loop) begin
+                        golden_result = golden_result + coef[calc_loop] * tc3_stream_in[golden_loop - calc_loop];
+                    end                 
+                end else begin
+                    golden_result = golden_result + coef[calc_loop] * tc3_stream_in[golden_loop - calc_loop];
+                end
+            end 
+            tc3_golden[golden_loop] = golden_result;
+        end
+
+
+        stream_generation(tc3_num, tc_seed);
+
+        //for (in_cnt = 0; in_cnt < tc3_num; in_cnt = in_cnt + 1) begin
+        //    $display("%d, stream_in, %d",in_cnt, tc3_stream_in[in_cnt]);
+        //end
+
+        //for (in_cnt = 0; in_cnt < tc3_num; in_cnt = in_cnt + 1) begin
+        //    $display("%d, golden, %d",in_cnt, tc3_golden[in_cnt]);
+        //end
+
+        latency_insert(dyn_seed);
+
+        random_config_write(12'h00, 32'h0000_0001);
+
+        fork
+            begin
+                //@ tc3_start_stream_in
+                for (in_cnt = 0; in_cnt < (tc3_num-1); in_cnt = in_cnt + 1) begin
+                    ss_tlast = 0; 
+                    ss(tc3_stream_in[in_cnt]);
+                    if (dyn_seed[2:0] < 3'd3) begin
+                        ss_tvalid = 0;
+                        repeat (dyn_seed[1:0]) @(posedge axis_clk);                        
+                        seed_randomize(dyn_seed);
+                    end
+                end
+                ss_tlast = 1; 
+                ss(tc3_stream_in[tc3_num-1]);
+                ss_tlast = 0;                
+            end
+
+            begin
+
+                for(out_cnt = 0; out_cnt < tc3_num; out_cnt = out_cnt + 1) begin
+
+                    if (dyn_seed[2:0]< 3'd3) begin
+                        latency_insert(dyn_seed);
+                    end
+
+                    sm(tc3_golden[out_cnt],out_cnt);                    
+                    sm_tready <= 0;
+                end
+
+                config_read_check(12'h00, 32'h02, 32'h0000_0002); // check ap_done = 1 (0x00 [bit 1])
+                config_read_check(12'h00, 32'h04, 32'h0000_0004); // check ap_idle = 1 (0x00 [bit 2])
+
+                if (error == 0 & error_coef == 0) begin
+                    $display("---------------------------------------------");
+                    $display("-----------Congratulations! Pass-------------");
+                end
+                else begin
+                    $display("--------Simulation Failed---------");
+                end
+                -> tc3_done;
+
+            end
+
+            begin
+                while (config_rd_wr) begin
+                    case(dyn_seed[0])
+                        0: random_config_write(12'h28, 32'h0000_0001);
+                        1: random_config_read_check(12'h00, 32'h000, 32'h0000_0004);
+                    endcase
+                    seed_randomize(dyn_seed);
+                    if ((out_cnt > (tc3_num-10))) config_rd_wr = 0;
+                end
+            end
+        join
+        $finish;
+    end
+
+endmodule
+
