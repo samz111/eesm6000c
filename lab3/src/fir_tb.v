@@ -3,8 +3,8 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 08/20/2023 10:38:55 AM
-// Design Name: 
+// Create Date: 03/15/2025 
+// Design Name: Zhang weiye 
 // Module Name: fir_tb
 // Project Name: 
 // Target Devices: 
@@ -26,28 +26,28 @@ module fir_tb
     parameter Tape_Num    = 11,
     parameter Data_Num    = 600
 )();
-    wire                        awready;
-    wire                        wready;
-    reg                         awvalid;
-    reg   [(pADDR_WIDTH-1): 0]  awaddr;
-    reg                         wvalid;
-    reg signed [(pDATA_WIDTH-1) : 0] wdata;
-    wire                        arready;
-    reg                         rready;
-    reg                         arvalid;
-    reg         [(pADDR_WIDTH-1): 0] araddr;
-    wire                        rvalid;
-    wire signed [(pDATA_WIDTH-1): 0] rdata;
-    reg                         ss_tvalid;
-    reg signed [(pDATA_WIDTH-1) : 0] ss_tdata;
-    reg                         ss_tlast;
-    wire                        ss_tready;
-    reg                         sm_tready;
-    wire                        sm_tvalid;
-    wire signed [(pDATA_WIDTH-1) : 0] sm_tdata;
-    wire                        sm_tlast;
-    reg                         axis_clk;
-    reg                         axis_rst_n;
+    wire                                awready;
+    wire                                wready;
+    reg                                 awvalid;
+    reg         [(pADDR_WIDTH-1):0]     awaddr;
+    reg                                 wvalid;
+    reg signed  [(pDATA_WIDTH-1):0]     wdata;
+    wire                                arready;
+    reg                                 rready;
+    reg                                 arvalid;
+    reg         [(pADDR_WIDTH-1):0]     araddr;
+    wire                                rvalid;
+    wire signed [(pDATA_WIDTH-1):0]     rdata;
+    reg                                 ss_tvalid;
+    reg signed  [(pDATA_WIDTH-1):0]     ss_tdata;
+    reg                                 ss_tlast;
+    wire                                ss_tready;
+    reg                                 sm_tready;
+    wire                                sm_tvalid;
+    wire signed [(pDATA_WIDTH-1):0]     sm_tdata;
+    wire                                sm_tlast;
+    reg                                 axis_clk;
+    reg                                 axis_rst_n;
 
 // ram for tap
     wire [3:0]               tap_WE;
