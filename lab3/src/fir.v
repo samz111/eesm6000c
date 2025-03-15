@@ -1,3 +1,23 @@
+ //////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 03/15/2025 
+// Design Name: Zhang weiye
+// Module Name: fir
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
  (* use_dsp = "no" *)
 module fir 
 #(  parameter pADDR_WIDTH = 12,
@@ -98,7 +118,7 @@ assign calc_read_addr   =  first_read ? 12'd10 : (12'd10 - calc_cnt);
 assign calc_write_addr  =  (12'd10 - calc_cnt);
 
 assign tap_WE = {4{(&tap_write_ready && ap_reg[2])}};
-assign tap_EN = ((&tap_write_ready && ap_reg[2]) || (tap_read_received & ap_reg[2] && (tap_raddr != 12'b0) && (tap_raddr != 12'h10) && (tap_raddr != 12'h14)) || calc_read_dly);
+assign tap_EN = ((&tap_write_ready && ap_reg[2]) || (tap_read_received && ap_reg[2] && (tap_raddr != 12'b0) && (tap_raddr != 12'h10) && (tap_raddr != 12'h14)) || calc_read_dly);
 assign tap_A  = (&tap_write_ready && ap_reg[2]) ? (tap_waddr -12'h20) : ((tap_read_ready && ap_reg[2]) ? (tap_raddr - 12'h20)  : ((calc_read || first_read) ? (calc_read_addr << 12'd2) : 32'b0));
 assign tap_Di = (&tap_write_ready && ap_reg[2]) ? tap_wdata : 32'b0;
 assign rvalid = tap_read_sent;
@@ -107,7 +127,7 @@ assign rdata  = tap_rdata;
 assign data_WE = {4{calc_write}};
 assign data_EN = (calc_write || calc_read_dly);
 assign data_A  = (calc_write ? (calc_write_addr << 12'd2) :  (((calc_read && (!calc_done)) || first_read) ? ((calc_read_addr - 12'd1) << 12'd2) : 32'b0));
-assign data_Di = (calc_write && !calc_done) ? data_Do_mod : data_wdata;
+assign data_Di = (calc_write && (!calc_done)) ? data_Do_mod : data_wdata;
 
 assign sm_tdata  = calc_data;
 assign sm_tvalid = result_done;
