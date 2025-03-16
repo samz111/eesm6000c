@@ -1,3 +1,21 @@
+# EESM6000C Lab3 FIR
+
+Git folder structure
+-lab3 
+>    -report
+>>        -fir_utilization_synth.rpt
+>>        -simulate.log
+>>        -timing_report.txt
+>    -src
+>>        -bram11.v
+>>        -bram12.v
+>>        -constraints.xdc
+>>        -fir.v
+>>        -fir_tb.v
+>>        -out_gold.dat
+>>        -samples_triangular_wave.dat
+
+
 # FIR Structure
 
 Main components:
