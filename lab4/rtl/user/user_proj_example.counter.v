@@ -76,10 +76,10 @@ module user_proj_example #(
     wire [`MPRJ_IO_PADS-1:0] io_out;
     wire [`MPRJ_IO_PADS-1:0] io_oeb;
 
-	reg [31:0] 	delay_counter; 
+    reg [31:0] 		delay_counter; 
     wire 		valid;
     wire 		ram_ce;
-    wire [3:0] 	ram_we;
+    wire [3:0] 		ram_we;
     wire [31:0] 	ram_addr;
     
     assign ram_addr = ((wbs_adr_i - 32'h38000000) >> 2);
