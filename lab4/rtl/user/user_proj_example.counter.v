@@ -78,13 +78,16 @@ module user_proj_example #(
 
     
 
+    wire valid;
+    assign valid = wbs_cyc_i && wbs_stb_i;
+
     bram user_bram (
         .CLK(clk),
-        .WE0(),
-        .EN0(),
-        .Di0(),
-        .Do0(),
-        .A0()
+        .WE0(wbs_sel_i),
+        .EN0(valid),
+        .Di0(wbs_dat_i),
+        .Do0(wbs_dat_o),
+        .A0(wbs_adr_i)
     );
 
 endmodule
