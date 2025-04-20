@@ -76,18 +76,39 @@ module user_proj_example #(
     wire [`MPRJ_IO_PADS-1:0] io_out;
     wire [`MPRJ_IO_PADS-1:0] io_oeb;
 
+	reg [31:0] 	delay_counter; 
+    wire 		valid;
+    wire 		ram_ce;
+    wire [3:0] 	ram_we;
+    wire [31:0] 	ram_addr;
     
-
-    wire valid;
-    assign valid = wbs_cyc_i && wbs_stb_i;
+    assign ram_addr = ((wbs_adr_i - 32'h38000000) >> 2);
+    
+    assign ram_we = wbs_sel_i & {4{wbs_we_i}};
+    assign valid = wbs_cyc_i && wbs_stb_i && (wbs_adr_i >= 32'h38000000) && (wbs_adr_i <= 32'h38400000);
+    assign ram_ce = valid && (delay_counter == 32'd10);
+    assign clk = wb_clk_i;
+    assign rst = wb_rst_i;
+    
+    always @ (posedge clk or posedge rst) begin
+	if (rst) begin
+	    delay_counter = 32'b0;
+	end else if (delay_counter == 32'd10) begin
+	    delay_counter = 32'b0;
+	end else if (valid) begin
+	    delay_counter = delay_counter + 1'b1;
+	end
+    end
+	  
+    assign wbs_ack_o = delay_counter == 32'd10;
 
     bram user_bram (
         .CLK(clk),
-        .WE0(wbs_sel_i),
-        .EN0(valid),
+        .WE0(ram_we),
+        .EN0(ram_ce),
         .Di0(wbs_dat_i),
         .Do0(wbs_dat_o),
-        .A0(wbs_adr_i)
+        .A0(ram_addr)
     );
 
 endmodule
