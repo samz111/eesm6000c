@@ -19,7 +19,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
  (* use_dsp = "no" *)
-module fir 
+module fir_backup 
 #(  parameter pADDR_WIDTH = 12,
     parameter pDATA_WIDTH = 32,
     parameter Tape_Num    = 11
