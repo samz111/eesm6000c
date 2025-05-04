@@ -472,7 +472,7 @@ always @(posedge axis_clk) begin
 end
 
 // data wdata sampling
-always @(posedge axis_clk or axis_rst_n) begin    
+ always @(posedge axis_clk or negedge axis_rst_n) begin    
     if (!axis_rst_n) begin
         ss_tready_sent <= 1'b0;
     end else if (sm_tready) begin
