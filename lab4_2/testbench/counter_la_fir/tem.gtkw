@@ -1,0 +1,163 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sun May  4 11:08:28 2025
+[*]
+[dumpfile] "/home/ubuntu/Desktop/hkust-soc-lab-main/Lab4/Lab4-2/lab-caravel_fir/testbench/counter_la_fir/counter_la_fir.vcd"
+[dumpfile_mtime] "Sun May  4 11:08:15 2025"
+[dumpfile_size] 97218560
+[savefile] "/home/ubuntu/Desktop/hkust-soc-lab-main/Lab4/Lab4-2/lab-caravel_fir/testbench/counter_la_fir/tem.gtkw"
+[timestart] 1544805000
+[size] 1509 862
+[pos] -1 -1
+*-17.378590 1544937500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[markername] A15244305000ps
+[treeopen] counter_la_fir_tb.
+[treeopen] counter_la_fir_tb.uut.
+[treeopen] counter_la_fir_tb.uut.mprj.
+[treeopen] counter_la_fir_tb.uut.mprj.mprj.
+[sst_width] 264
+[signals_width] 276
+[sst_expanded] 1
+[sst_vpaned_height] 406
+@22
+counter_la_fir_tb.uut.mprj.mprj.wbs_adr_i_d[31:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.wbs_cyc_i_d
+@22
+counter_la_fir_tb.uut.mprj.mprj.wbs_dat_i_d[31:0]
+counter_la_fir_tb.uut.mprj.mprj.wbs_sel_i_d[3:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.wbs_stb_i_d
+counter_la_fir_tb.uut.mprj.mprj.wbs_we_i_d
+counter_la_fir_tb.uut.mprj.mprj.wbs_ack_o
+@22
+counter_la_fir_tb.uut.mprj.mprj.wbs_dat_o[31:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.wbs_ack_o_d
+@200
+-
+@28
+counter_la_fir_tb.uut.mprj.mprj.user_bram_done
+counter_la_fir_tb.uut.mprj.mprj.user_bram_valid
+@22
+counter_la_fir_tb.uut.mprj.mprj.user_bram_data_saved[31:0]
+counter_la_fir_tb.uut.mprj.mprj.user_bram_addr[31:0]
+@c00022
+counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+@28
+(0)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(1)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(2)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(3)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(4)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(5)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(6)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(7)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(8)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(9)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(10)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(11)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(12)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(13)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(14)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(15)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(16)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(17)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(18)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(19)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(20)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(21)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(22)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(23)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(24)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(25)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(26)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(27)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(28)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(29)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(30)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+(31)counter_la_fir_tb.uut.mprj.mprj.user_bram_data_o[31:0]
+@1401200
+-group_end
+@28
+counter_la_fir_tb.uut.mprj.mprj.user_bram_ce
+@22
+counter_la_fir_tb.uut.mprj.mprj.user_bram_we[3:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.wbs_user_bram_sel
+@22
+counter_la_fir_tb.uut.mprj.mprj.delay_counter[31:0]
+@200
+-
+@28
+counter_la_fir_tb.uut.mprj.mprj.clk
+counter_la_fir_tb.uut.mprj.mprj.wb_clk_i
+@200
+-
+@28
+counter_la_fir_tb.uut.mprj.mprj.wb_axi_fsm[1:0]
+counter_la_fir_tb.uut.mprj.mprj.wb_xin_fsm[1:0]
+counter_la_fir_tb.uut.mprj.mprj.wb_yout_fsm[1:0]
+@200
+-
+@28
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.awvalid
+@22
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.awaddr[11:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.awready
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.wvalid
+@22
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.wdata[31:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.wready
+@200
+-
+@22
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.ss_tdata[31:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.ss_tlast
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.ss_tlast_dly
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.ss_tready
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.ss_tvalid
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.data_write_ready
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.ss_tready_sent
+@200
+-
+@420
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.sm_tdata[31:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.sm_tlast
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.sm_tready
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.sm_tvalid
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.result_done
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.calc_done
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.mem_ctrl_fsm[2:0]
+@22
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.ap_reg[31:0]
+@200
+-
+@23
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.multiply_data[31:0]
+@22
+counter_la_fir_tb.uut.mprj.mprj.fir_DUT.calc_data[31:0]
+counter_la_fir_tb.uut.mprj.mprj.data_RAM.A[11:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.data_RAM.CLK
+@22
+counter_la_fir_tb.uut.mprj.mprj.data_RAM.Di[31:0]
+counter_la_fir_tb.uut.mprj.mprj.data_RAM.Do[31:0]
+@28
+counter_la_fir_tb.uut.mprj.mprj.data_RAM.EN
+@22
+counter_la_fir_tb.uut.mprj.mprj.data_RAM.WE[3:0]
+counter_la_fir_tb.uut.mprj.mprj.data_RAM.r_A[11:0]
+@200
+-
+-
+@22
+counter_la_fir_tb.checkbits[15:0]
+@420
+counter_la_fir_tb.checkbits[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
