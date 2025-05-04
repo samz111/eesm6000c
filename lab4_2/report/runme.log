@@ -1,0 +1,548 @@
+
+*** Running vivado
+    with args -log user_proj_example.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source user_proj_example.tcl
+
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source user_proj_example.tcl -notrace
+Command: synth_design -top user_proj_example -part xc7z020clg400-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 5830
+WARNING: [Synth 8-9971] redeclaration of ansi port 'io_in' is not allowed [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:83]
+WARNING: [Synth 8-9971] redeclaration of ansi port 'io_out' is not allowed [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:84]
+WARNING: [Synth 8-9971] redeclaration of ansi port 'io_oeb' is not allowed [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:85]
+WARNING: [Synth 8-9400] empty statement in sequential block [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:207]
+WARNING: [Synth 8-9887] parameter declaration becomes local in 'user_proj_example' with formal parameter declaration list [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:115]
+WARNING: [Synth 8-9887] parameter declaration becomes local in 'user_proj_example' with formal parameter declaration list [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:116]
+WARNING: [Synth 8-9887] parameter declaration becomes local in 'user_proj_example' with formal parameter declaration list [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:117]
+WARNING: [Synth 8-9887] parameter declaration becomes local in 'user_proj_example' with formal parameter declaration list [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:118]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:05 . Memory (MB): peak = 2903.078 ; gain = 0.000 ; free physical = 2995 ; free virtual = 6564
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'user_proj_example' [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:46]
+INFO: [Synth 8-226] default block is never used [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:254]
+INFO: [Synth 8-226] default block is never used [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:310]
+INFO: [Synth 8-226] default block is never used [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:344]
+INFO: [Synth 8-6157] synthesizing module 'fir' [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/fir.v:22]
+INFO: [Synth 8-6155] done synthesizing module 'fir' (0#1) [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/fir.v:22]
+INFO: [Synth 8-6157] synthesizing module 'bram11' [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/bram11.v:25]
+INFO: [Synth 8-6155] done synthesizing module 'bram11' (0#1) [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/bram11.v:25]
+INFO: [Synth 8-6157] synthesizing module 'bram' [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/bram.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'bram' (0#1) [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/bram.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'user_proj_example' (0#1) [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:46]
+WARNING: [Synth 8-6014] Unused sequential element result_done_dly_reg was removed.  [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/fir.v:358]
+WARNING: [Synth 8-7137] Register data_length_reg in module fir has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/fir.v:441]
+WARNING: [Synth 8-7137] Register tap_num_reg in module fir has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/fir.v:450]
+WARNING: [Synth 8-3848] Net la_data_out in module/entity user_proj_example does not have driver. [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:69]
+WARNING: [Synth 8-3848] Net io_out in module/entity user_proj_example does not have driver. [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:74]
+WARNING: [Synth 8-3848] Net io_oeb in module/entity user_proj_example does not have driver. [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:75]
+WARNING: [Synth 8-3848] Net irq in module/entity user_proj_example does not have driver. [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/user_proj_example.counter.v:78]
+WARNING: [Synth 8-7129] Port A0[31] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[30] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[29] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[28] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[27] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[26] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[25] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[24] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[23] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[22] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[21] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[20] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[19] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[18] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[17] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[16] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[15] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[14] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[13] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port A0[12] in module bram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[127] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[126] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[125] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[124] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[123] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[122] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[121] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[120] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[119] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[118] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[117] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[116] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[115] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[114] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[113] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[112] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[111] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[110] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[109] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[108] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[107] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[106] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[105] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[104] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[103] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[102] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[101] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[100] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[99] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[98] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[97] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[96] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[95] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[94] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[93] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[92] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[91] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[90] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[89] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[88] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[87] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[86] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[85] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[84] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[83] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[82] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[81] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[80] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[79] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[78] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[77] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[76] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[75] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[74] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[73] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[72] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[71] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[70] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[69] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[68] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[67] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[66] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[65] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[64] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[63] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[62] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[61] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[60] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[59] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[58] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[57] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[56] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[55] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[54] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[53] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[52] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[51] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[50] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[49] in module user_proj_example is either unconnected or has no load
+WARNING: [Synth 8-7129] Port la_data_out[48] in module user_proj_example is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 2903.078 ; gain = 0.000 ; free physical = 3011 ; free virtual = 6583
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 2903.078 ; gain = 0.000 ; free physical = 3009 ; free virtual = 6582
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 2903.078 ; gain = 0.000 ; free physical = 3009 ; free virtual = 6582
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2903.078 ; gain = 0.000 ; free physical = 3008 ; free virtual = 6581
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/constrs_1/imports/user/constraints.xdc]
+Finished Parsing XDC File [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/constrs_1/imports/user/constraints.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2919.086 ; gain = 0.000 ; free physical = 1815 ; free virtual = 5402
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2919.086 ; gain = 0.000 ; free physical = 1815 ; free virtual = 5402
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:11 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2889 ; free virtual = 6476
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:11 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2889 ; free virtual = 6476
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:05 ; elapsed = 00:00:11 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2889 ; free virtual = 6476
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'wb_axi_fsm_reg' in module 'user_proj_example'
+INFO: [Synth 8-802] inferred FSM for state register 'wb_xin_fsm_reg' in module 'user_proj_example'
+INFO: [Synth 8-802] inferred FSM for state register 'wb_yout_fsm_reg' in module 'user_proj_example'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 iSTATE1 |                                0 |                               00
+                 iSTATE2 |                                1 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'wb_xin_fsm_reg' using encoding 'sequential' in module 'user_proj_example'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 iSTATE1 |                                0 |                               00
+                 iSTATE2 |                                1 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'wb_yout_fsm_reg' using encoding 'sequential' in module 'user_proj_example'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 iSTATE2 |                               01 |                               00
+                  iSTATE |                               11 |                               01
+                 iSTATE0 |                               10 |                               10
+                 iSTATE1 |                               00 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'wb_axi_fsm_reg' using encoding 'sequential' in module 'user_proj_example'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:11 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2877 ; free virtual = 6468
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 2     
+	   2 Input   12 Bit       Adders := 6     
+	   2 Input    7 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 12    
+	               12 Bit    Registers := 5     
+	                7 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 27    
++---Multipliers : 
+	              32x32  Multipliers := 1     
++---RAMs : 
+	             128K Bit	(4096 X 32 bit)          RAMs := 1     
+	              352 Bit	(11 X 32 bit)          RAMs := 2     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 32    
+	   4 Input   32 Bit        Muxes := 1     
+	   2 Input   12 Bit        Muxes := 8     
+	   4 Input   12 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 3     
+	   2 Input    7 Bit        Muxes := 1     
+	   8 Input    3 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 3     
+	   2 Input    2 Bit        Muxes := 10    
+	   2 Input    1 Bit        Muxes := 38    
+	   6 Input    1 Bit        Muxes := 3     
+	   3 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3936] Found unconnected internal register 'data_RAM/r_A_reg' and it is trimmed from '12' to '6' bits. [/home/ubuntu/Desktop/lab4_2/lab4_2.srcs/sources_1/imports/user/bram11.v:47]
+DSP Report: Generating DSP fir_DUT/multiply_data0, operation Mode is: A*B.
+DSP Report: operator fir_DUT/multiply_data0 is absorbed into DSP fir_DUT/multiply_data0.
+DSP Report: operator fir_DUT/multiply_data0 is absorbed into DSP fir_DUT/multiply_data0.
+DSP Report: Generating DSP fir_DUT/multiply_data_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register fir_DUT/multiply_data_reg is absorbed into DSP fir_DUT/multiply_data_reg.
+DSP Report: operator fir_DUT/multiply_data0 is absorbed into DSP fir_DUT/multiply_data_reg.
+DSP Report: operator fir_DUT/multiply_data0 is absorbed into DSP fir_DUT/multiply_data_reg.
+DSP Report: Generating DSP fir_DUT/multiply_data0, operation Mode is: A*B.
+DSP Report: operator fir_DUT/multiply_data0 is absorbed into DSP fir_DUT/multiply_data0.
+DSP Report: operator fir_DUT/multiply_data0 is absorbed into DSP fir_DUT/multiply_data0.
+DSP Report: Generating DSP fir_DUT/multiply_data_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register fir_DUT/multiply_data_reg is absorbed into DSP fir_DUT/multiply_data_reg.
+DSP Report: operator fir_DUT/multiply_data0 is absorbed into DSP fir_DUT/multiply_data_reg.
+DSP Report: operator fir_DUT/multiply_data0 is absorbed into DSP fir_DUT/multiply_data_reg.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[47]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[46]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[45]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[44]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[43]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[42]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[41]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[40]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[39]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[38]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[37]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[36]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[35]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[34]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[33]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[32]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[31]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[30]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[29]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[28]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[27]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[26]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[25]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[24]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[23]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[22]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[21]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[20]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[19]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[18]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[17]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[16]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[15]) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[47]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[46]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[45]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[44]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[43]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[42]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[41]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[40]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[39]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[38]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[37]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[36]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[35]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[34]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[33]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[32]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[31]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[30]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[29]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[28]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[27]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[26]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[25]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[24]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[23]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[22]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[21]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[20]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[19]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[18]__0) is unused and will be removed from module user_proj_example.
+WARNING: [Synth 8-3332] Sequential element (fir_DUT/multiply_data_reg[17]__0) is unused and will be removed from module user_proj_example.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:07 ; elapsed = 00:00:14 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2871 ; free virtual = 6471
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping Report (see note below)
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name       | RTL Object        | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|user_proj_example | user_bram/RAM_reg | 4 K x 32(READ_FIRST)   | W |   | 4 K x 32(WRITE_FIRST)  |   | R | Port A and B     | 0      | 4      | 
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------------+------------------+-----------+----------------------+----------------+
+|Module Name       | RTL Object       | Inference | Size (Depth x Width) | Primitives     | 
++------------------+------------------+-----------+----------------------+----------------+
+|user_proj_example | tap_RAM/RAM_reg  | Implied   | 16 x 32              | RAM16X1D x 32  | 
+|user_proj_example | data_RAM/RAM_reg | Implied   | 16 x 32              | RAM16X1D x 32  | 
++------------------+------------------+-----------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name       | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|user_proj_example | A*B            | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|user_proj_example | (PCIN>>17)+A*B | 16     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|user_proj_example | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|user_proj_example | (PCIN>>17)+A*B | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
++------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2726 ; free virtual = 6334
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:19 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2695 ; free virtual = 6303
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name       | RTL Object        | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|user_proj_example | user_bram/RAM_reg | 4 K x 32(READ_FIRST)   | W |   | 4 K x 32(WRITE_FIRST)  |   | R | Port A and B     | 0      | 4      | 
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+
+Distributed RAM: Final Mapping Report
++------------------+------------------+-----------+----------------------+----------------+
+|Module Name       | RTL Object       | Inference | Size (Depth x Width) | Primitives     | 
++------------------+------------------+-----------+----------------------+----------------+
+|user_proj_example | tap_RAM/RAM_reg  | Implied   | 16 x 32              | RAM16X1D x 32  | 
+|user_proj_example | data_RAM/RAM_reg | Implied   | 16 x 32              | RAM16X1D x 32  | 
++------------------+------------------+-----------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance user_bram/RAM_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance user_bram/RAM_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance user_bram/RAM_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance user_bram/RAM_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:13 ; elapsed = 00:00:20 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2692 ; free virtual = 6299
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2691 ; free virtual = 6299
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2691 ; free virtual = 6299
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2691 ; free virtual = 6299
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2691 ; free virtual = 6299
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2691 ; free virtual = 6299
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2691 ; free virtual = 6299
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name       | DSP Mapping     | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|user_proj_example | (A*B)'          | 17     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|user_proj_example | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|user_proj_example | (PCIN>>17+A*B)' | 0      | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     1|
+|2     |CARRY4   |    25|
+|3     |DSP48E1  |     3|
+|5     |LUT1     |     6|
+|6     |LUT2     |    62|
+|7     |LUT3     |    23|
+|8     |LUT4     |   103|
+|9     |LUT5     |   118|
+|10    |LUT6     |    77|
+|11    |RAM16X1D |    64|
+|12    |RAMB36E1 |     4|
+|13    |FDCE     |   213|
+|14    |FDPE     |     2|
+|15    |FDRE     |   138|
+|16    |IBUF     |    73|
+|17    |OBUF     |    33|
+|18    |OBUFT    |   207|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 2919.086 ; gain = 16.008 ; free physical = 2691 ; free virtual = 6299
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 567 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:15 ; elapsed = 00:00:21 . Memory (MB): peak = 2919.086 ; gain = 0.000 ; free physical = 2739 ; free virtual = 6347
+Synthesis Optimization Complete : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 2919.094 ; gain = 16.008 ; free physical = 2739 ; free virtual = 6347
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2919.094 ; gain = 0.000 ; free physical = 2848 ; free virtual = 6456
+INFO: [Netlist 29-17] Analyzing 96 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2919.094 ; gain = 0.000 ; free physical = 2816 ; free virtual = 6425
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 64 instances were transformed.
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 64 instances
+
+Synth Design complete, checksum: b8b56573
+INFO: [Common 17-83] Releasing license: Synthesis
+36 Infos, 181 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 2919.094 ; gain = 16.016 ; free physical = 3012 ; free virtual = 6621
+INFO: [Common 17-1381] The checkpoint '/home/ubuntu/Desktop/lab4_2/lab4_2.runs/synth_1/user_proj_example.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file user_proj_example_utilization_synth.rpt -pb user_proj_example_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sun May  4 10:46:21 2025...
